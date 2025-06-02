@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>BuyList</title>
+  <link rel="stylesheet" href="main.css">
+</head>
+<body>
+  <div class="container">
+    <div class="left-column">
+      <div class="add-item">
+        <input type="text" placeholder="Назва товару">
+        <button class="add-btn" data-tooltip="Додати товар">Додати</button>
+      </div>
+      <ul class="product-list">
+   <li class="product bought">
+  <span class="name"><s>Помідори</s></span>
+  <div class="counter-box">
+    <span class="counter">2</span>
+  </div>
+  <div class="actions">
+    <button class="toggle-btn single" disabled data-tooltip="Позначити як не куплене">Не куплено</button>
+  </div>
+</li>
+      <li class="product">
+  <span class="name">Печиво</span>
+  <div class="counter-box">
+    <button class="count-btn minus" data-tooltip="Зменшити кількість">−</button>
+    <span class="counter">2</span>
+    <button class="count-btn plus" data-tooltip="Збільшити кількість">+</button>
+  </div>
+  <div class="actions">
+    <button class="toggle-btn" data-tooltip="Купити товар">Куплено</button>
+    <button class="remove-btn" data-tooltip="Видалити товар">✖</button>
+  </div>
+</li>
+    <li class="product">
+  <span class="name">Сир</span>
+  <div class="counter-box">
+    <button class="count-btn minus" data-tooltip="Зменшити кількість">−</button>
+    <span class="counter">1</span>
+    <button class="count-btn plus" data-tooltip="Збільшити кількість">+</button>
+  </div>
+  <div class="actions">
+    <button class="toggle-btn" data-tooltip="Купити товар">Куплено</button>
+    <button class="remove-btn" data-tooltip="Видалити товар">✖</button>
+  </div>
+</li>
+      </ul>
+    </div>
+
+    <div class="right-column">
+      <h2>Залишилося</h2>
+      <div class="badge-list">
+        <span class="badge">Печиво <span class="count">2</span></span>
+        <span class="badge">Сир <span class="count">1</span></span>
+      </div>
+      <h2>Куплено</h2>
+      <div class="badge-list">
+        <span class="badge"><s>Помідори</s> <span class="count">2</span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="author-badge">
+    <div class="short">Buy List</div>
+    <div class="full">Created by: Бойко Соломія</div>
+  </div>
+</body>
+</html>
