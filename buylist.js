@@ -6,10 +6,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const boughtBadgeList = document.querySelectorAll(".right-column .badge-list")[1];
 
   let items = JSON.parse(localStorage.getItem("buylist")) || [
-    { name: "Помідори", count: 2, bought: true },
-    { name: "Печиво", count: 2, bought: false },
-    { name: "Сир", count: 1, bought: false },
+    { id: 1, name: "Помідори", count: 2, bought: true },
+    { id: 2, name: "Печиво", count: 2, bought: false },
+    { id: 3, name: "Сир", count: 1, bought: false },
   ];
+
+  let nextId = items.length > 0 ? Math.max(...items.map(i => i.id)) + 1 : 1;
 
   function saveState() {
     localStorage.setItem("buylist", JSON.stringify(items));
@@ -19,19 +21,20 @@ document.addEventListener("DOMContentLoaded", () => {
     productList.innerHTML = "";
     leftBadgeList.innerHTML = "";
     boughtBadgeList.innerHTML = "";
-    items.forEach((item, index) => renderItem(item, index));
+    items.forEach(renderItem);
   }
 
-  function renderItem(item, index) {
+  function renderItem(item) {
     const li = document.createElement("li");
     li.className = "product" + (item.bought ? " bought" : "");
+    li.dataset.id = item.id;
 
     const nameSpan = document.createElement("span");
     nameSpan.className = "name";
     nameSpan.innerHTML = item.bought ? `<s>${item.name}</s>` : item.name;
 
     if (!item.bought) {
-      nameSpan.addEventListener("click", () => editName(index, nameSpan));
+      nameSpan.addEventListener("click", () => editName(item.id, nameSpan));
     }
 
     const counterBox = document.createElement("div");
@@ -42,16 +45,22 @@ document.addEventListener("DOMContentLoaded", () => {
       minusBtn.className = "count-btn minus";
       minusBtn.textContent = "−";
       minusBtn.disabled = item.count <= 1;
-      minusBtn.onclick = () => { item.count--; saveState(); updateItem(index); };
+      minusBtn.onclick = () => {
+        item.count--;
+        saveState();
+        updateItem(item.id);
+      };
 
       const plusBtn = document.createElement("button");
       plusBtn.className = "count-btn plus";
       plusBtn.textContent = "+";
-      plusBtn.onclick = () => { item.count++; saveState(); updateItem(index); };
+      plusBtn.onclick = () => {
+        item.count++;
+        saveState();
+        updateItem(item.id);
+      };
 
-      counterBox.append(minusBtn);
-      counterBox.append(createCounter(item.count));
-      counterBox.append(plusBtn);
+      counterBox.append(minusBtn, createCounter(item.count), plusBtn);
     } else {
       counterBox.append(createCounter(item.count));
     }
@@ -65,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleBtn.onclick = () => {
       item.bought = !item.bought;
       saveState();
-      updateItem(index, true);
+      updateItem(item.id, true);
     };
     actions.append(toggleBtn);
 
@@ -74,42 +83,43 @@ document.addEventListener("DOMContentLoaded", () => {
       removeBtn.className = "remove-btn";
       removeBtn.textContent = "✖";
       removeBtn.onclick = () => {
-        removeItem(index);
+        removeItem(item.id);
       };
       actions.append(removeBtn);
     }
 
-    li.append(nameSpan);
-    li.append(counterBox);
-    li.append(actions);
-    li.dataset.index = index;
+    li.append(nameSpan, counterBox, actions);
     productList.appendChild(li);
-    updateBadge(index);
+    updateBadge();
   }
 
-  function updateItem(index, rerender = false) {
-    const li = productList.querySelectorAll(".product")[index];
+  function updateItem(id, rerender = false) {
+    const index = items.findIndex(item => item.id === id);
+    if (index === -1) return;
+
     if (rerender) {
-      li.remove();
-      renderItem(items[index], index);
+      renderList(); 
     } else {
+      const li = productList.querySelector(`li[data-id='${id}']`);
+      if (!li) return;
+
       const counter = li.querySelector(".counter");
       counter.textContent = items[index].count;
 
       const minusBtn = li.querySelector(".minus");
       if (minusBtn) minusBtn.disabled = items[index].count <= 1;
 
-      updateBadge(index);
+      updateBadge();
     }
   }
 
-  function removeItem(index) {
-    items.splice(index, 1);
+  function removeItem(id) {
+    items = items.filter(item => item.id !== id);
     saveState();
     renderList();
   }
 
-  function updateBadge(index) {
+  function updateBadge() {
     leftBadgeList.innerHTML = "";
     boughtBadgeList.innerHTML = "";
     items.forEach((item) => {
@@ -127,34 +137,38 @@ document.addEventListener("DOMContentLoaded", () => {
     return span;
   }
 
-  function editName(index, span) {
+  function editName(id, span) {
+    const index = items.findIndex(item => item.id === id);
+    if (index === -1) return;
+
     const input = document.createElement("input");
     input.type = "text";
     input.value = items[index].name;
     span.replaceWith(input);
     input.focus();
     input.addEventListener("blur", () => {
-      items[index].name = input.value.trim() || items[index].name;
+      const newName = input.value.trim();
+      if (newName) items[index].name = newName;
       saveState();
       renderList();
     });
   }
 
-  addBtn.addEventListener("click", () => addItem());
-  input.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") addItem();
-  });
-
   function addItem() {
     const name = input.value.trim();
     if (name) {
-      items.push({ name, count: 1, bought: false });
+      items.push({ id: nextId++, name, count: 1, bought: false });
       input.value = "";
       input.focus();
       saveState();
       renderList();
     }
   }
+
+  addBtn.addEventListener("click", () => addItem());
+  input.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") addItem();
+  });
 
   renderList();
 });
