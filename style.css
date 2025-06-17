@@ -1,0 +1,277 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  color: #333;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.site-title {
+  font-size: 1.5rem;
+}
+
+.sign-in {
+  padding: 0.5rem 1rem;
+  background: #2c7be5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: not-allowed;
+}
+
+/* Adaptive title + Filter/Sort controls */
+.top-controls {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: white;
+}
+
+.adaptive-title {
+  font-size: 1.2rem;
+}
+
+.filter-sort-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-sort-buttons button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 5px;
+  cursor: not-allowed;
+}
+
+/* Main Layout */
+.container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* Filters */
+.filters {
+  flex: 1;
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+}
+
+.filters h2 {
+  margin-bottom: 1rem;
+}
+
+.filter-group {
+  margin-bottom: 1rem;
+}
+
+.filter-group h3 {
+  margin-bottom: 0.3rem;
+}
+
+.filter-group input[type="text"] {
+  width: 100%;
+  padding: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.filter-group label {
+  display: block;
+  margin-top: 0.2rem;
+}
+
+/* Content */
+.content {
+  flex: 3;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.content-header .sort-select {
+  padding: 0.4rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+}
+
+.book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.book {
+  background: white;
+  padding: 0.5rem;
+  border-radius: 6px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.book img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.book .title {
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.book .author {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.book-info {
+  margin-top: 0.3rem;
+}
+
+/* Tablet layout (768–1023px) */
+@media (max-width: 1023px) {
+  .site-title {
+    display: none;
+  }
+
+  .top-controls {
+    display: flex;
+  }
+
+  .adaptive-title {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .filters {
+    display: none;
+  }
+
+  .book-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .book img {
+    max-height: 200px;
+    object-fit: contain;
+  }
+  .sign-in {
+    display: none;
+  }
+
+  .content-header .sort-select {
+    display: none;
+  }
+
+  .filter-sort-buttons .sort-btn::after {
+    content: " ▼";
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile layout (<768px) */
+@media (max-width: 767px) {
+  .top-controls {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .adaptive-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .filter-sort-buttons {
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    flex: 1;
+  }
+
+  .filter-sort-buttons .sort-btn::after {
+    content: "";
+  }
+
+  .filter-sort-buttons button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .content-header .sort-select {
+    display: none;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+
+  .section-title::after {
+    content: " Books";
+  }
+
+  .book-list {
+    grid-template-columns: 1fr;
+  }
+
+  .book {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .book img {
+    width: 90px;
+  }
+
+  .book .title {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .book .author {
+    font-size: 0.85rem;
+  }
+
+  .book-info {
+    margin-top: 0;
+  }
+
+  .sign-in {
+    display: none;
+  }
+}
