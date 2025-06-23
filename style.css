@@ -10,7 +10,7 @@ body {
   color: #333;
 }
 
-/* Header */
+/* === HEADER === */
 .header {
   display: flex;
   justify-content: space-between;
@@ -34,7 +34,7 @@ body {
   cursor: not-allowed;
 }
 
-/* Adaptive title + Filter/Sort controls */
+/* === TOP CONTROLS === */
 .top-controls {
   display: none;
   justify-content: space-between;
@@ -52,22 +52,22 @@ body {
   gap: 0.5rem;
 }
 
-.filter-sort-buttons button {
+.filter-sort-buttons .filter-btn {
   padding: 0.5rem 1rem;
   border: 1px solid #ccc;
   background: white;
   border-radius: 5px;
-  cursor: not-allowed;
+  cursor: pointer;
 }
 
-/* Main Layout */
+/* === MAIN LAYOUT === */
 .container {
   display: flex;
   gap: 2rem;
   padding: 2rem;
 }
 
-/* Filters */
+/* === FILTERS === */
 .filters {
   flex: 1;
   background: white;
@@ -100,7 +100,7 @@ body {
   margin-top: 0.2rem;
 }
 
-/* Content */
+/* === CONTENT === */
 .content {
   flex: 3;
 }
@@ -113,7 +113,12 @@ body {
 }
 
 .content-header .sort-select {
+  display: inline-block;
   padding: 0.4rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: white;
 }
 
 .section-title {
@@ -136,7 +141,8 @@ body {
 
 .book img {
   width: 100%;
-  height: auto;
+  height: 260px;
+  object-fit: contain;
   border-radius: 4px;
 }
 
@@ -154,7 +160,7 @@ body {
   margin-top: 0.3rem;
 }
 
-/* Tablet layout (768–1023px) */
+/* === TABLET (768–1023px) === */
 @media (max-width: 1023px) {
   .site-title {
     display: none;
@@ -181,10 +187,11 @@ body {
   .book-list {
     grid-template-columns: repeat(2, 1fr);
   }
+
   .book img {
-    max-height: 200px;
-    object-fit: contain;
+    height: 200px;
   }
+
   .sign-in {
     display: none;
   }
@@ -193,13 +200,17 @@ body {
     display: none;
   }
 
-  .filter-sort-buttons .sort-btn::after {
-    content: " ▼";
-    font-size: 0.8rem;
+  .filter-sort-buttons .sort-select {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
   }
 }
 
-/* Mobile layout (<768px) */
+/* === MOBILE (<768px) === */
 @media (max-width: 767px) {
   .top-controls {
     flex-direction: row;
@@ -215,6 +226,19 @@ body {
     text-transform: capitalize;
   }
 
+  .content-header .sort-select {
+    display: none;
+  }
+
+  .filter-sort-buttons .sort-select {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+  }
+
   .filter-sort-buttons {
     flex-direction: row;
     gap: 0.5rem;
@@ -222,17 +246,9 @@ body {
     flex: 1;
   }
 
-  .filter-sort-buttons .sort-btn::after {
-    content: "";
-  }
-
   .filter-sort-buttons button {
     padding: 0.4rem 0.8rem;
     font-size: 0.85rem;
-  }
-
-  .content-header .sort-select {
-    display: none;
   }
 
   .section-title {
@@ -256,6 +272,8 @@ body {
 
   .book img {
     width: 90px;
+    height: 130px;
+    object-fit: contain;
   }
 
   .book .title {
@@ -274,4 +292,88 @@ body {
   .sign-in {
     display: none;
   }
+}
+
+/* === MOBILE FILTER PANEL === */
+.mobile-filters {
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: 1000;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #ddd;
+  overflow-y: auto;
+  max-height: calc(100vh - 70px);
+}
+
+.mobile-filters.active {
+  display: block;
+}
+
+.mobile-filters .close-mobile {
+  background: #eee;
+  border: none;
+  padding: 0.5rem 1rem;
+  float: right;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-content {
+  background: white;
+  padding: 1.5rem;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  position: relative;
+  text-align: left;
+}
+.popup-content img {
+  display: block;
+  max-width: 100%;
+  max-height: 50vh;
+  margin: 0 auto 1rem auto;
+  object-fit: contain;
+  border-radius: 6px;
+}
+.popup-content .close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.8rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-content .fav-btn {
+  margin-top: 1rem;
+  background: #2c7be5;
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
