@@ -1,0 +1,388 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  color: #333;
+}
+
+/* === HEADER === */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.site-title {
+  font-size: 1.5rem;
+}
+
+.sign-in {
+  padding: 0.5rem 1rem;
+  background: #2c7be5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: not-allowed;
+}
+
+.report-link {
+  text-decoration: none;
+  background: #28a745;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+/* === TOP CONTROLS === */
+.top-controls {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: white;
+}
+
+.adaptive-title {
+  font-size: 1.2rem;
+}
+
+.filter-sort-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.filter-sort-buttons .filter-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* === MAIN LAYOUT === */
+.container {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* === FILTERS === */
+.filters {
+  flex: 1;
+  background: white;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  min-width: 200px;
+}
+
+.filters h2 {
+  margin-bottom: 1rem;
+}
+
+.filter-group {
+  margin-bottom: 1rem;
+}
+
+.filter-group h3 {
+  margin-bottom: 0.3rem;
+}
+
+.filter-group input[type="text"] {
+  width: 100%;
+  padding: 0.4rem;
+  margin-top: 0.2rem;
+}
+
+.filter-group label {
+  display: block;
+  margin-top: 0.2rem;
+}
+
+/* === CONTENT === */
+.content {
+  flex: 3;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.content-header .sort-select {
+  display: inline-block;
+  padding: 0.4rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: white;
+}
+
+.section-title {
+  font-size: 1.5rem;
+}
+
+.book-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.book {
+  background: white;
+  padding: 0.5rem;
+  border-radius: 6px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.book img {
+  width: 100%;
+  height: 260px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.book .title {
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.book .author {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.book-info {
+  margin-top: 0.3rem;
+}
+
+/* === TABLET (768–1023px) === */
+@media (max-width: 1023px) {
+  .site-title {
+    display: none;
+  }
+
+  .top-controls {
+    display: flex;
+  }
+
+  .adaptive-title {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .filters {
+    display: none;
+  }
+
+  .book-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .book img {
+    height: 200px;
+  }
+
+  .sign-in {
+    display: none;
+  }
+
+  .content-header .sort-select {
+    display: none;
+  }
+
+  .filter-sort-buttons .sort-select {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+  }
+}
+
+/* === MOBILE (<768px) === */
+@media (max-width: 767px) {
+  .top-controls {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .adaptive-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: capitalize;
+  }
+
+  .content-header .sort-select {
+    display: none;
+  }
+
+  .filter-sort-buttons .sort-select {
+    display: inline-block;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: white;
+  }
+
+  .filter-sort-buttons {
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: flex-end;
+    flex: 1;
+  }
+
+  .filter-sort-buttons button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+
+  .section-title {
+    font-size: 1.2rem;
+  }
+
+  .section-title::after {
+    content: " Books";
+  }
+
+  .book-list {
+    grid-template-columns: 1fr;
+  }
+
+  .book {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-align: left;
+  }
+
+  .book img {
+    width: 90px;
+    height: 130px;
+    object-fit: contain;
+  }
+
+  .book .title {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .book .author {
+    font-size: 0.85rem;
+  }
+
+  .book-info {
+    margin-top: 0;
+  }
+
+  .sign-in {
+    display: none;
+  }
+}
+
+/* === MOBILE FILTER PANEL === */
+.mobile-filters {
+  display: none;
+  position: fixed;
+  top: 70px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: white;
+  z-index: 1000;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #ddd;
+  overflow-y: auto;
+  max-height: calc(100vh - 70px);
+}
+
+.mobile-filters.active {
+  display: block;
+}
+
+.mobile-filters .close-mobile {
+  background: #eee;
+  border: none;
+  padding: 0.5rem 1rem;
+  float: right;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-content {
+  background: white;
+  padding: 1.5rem;
+  max-width: 500px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  position: relative;
+  text-align: left;
+}
+.popup-content img {
+  display: block;
+  max-width: 100%;
+  max-height: 50vh;
+  margin: 0 auto 1rem auto;
+  object-fit: contain;
+  border-radius: 6px;
+}
+.popup-content .close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.8rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-content .fav-btn {
+  margin-top: 1rem;
+  background: #2c7be5;
+  color: white;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
